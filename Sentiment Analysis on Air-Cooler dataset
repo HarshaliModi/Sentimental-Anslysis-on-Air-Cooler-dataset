@@ -1,0 +1,26 @@
+#Installing Syuzhet Package
+install.packages("syuzhet")
+library(syuzhet)
+
+#Setting the working directory
+getwd()
+setwd("C:\\Users\\Harshali\\Documents\\Datasets")
+text<-read.csv("Dataset-SA.csv", stringsAsFactors = FALSE)
+View(text)
+
+#Restoring data in character form
+review<-as.character(text$Summary)
+
+#Getting Sentiment Scores
+get_nrc_sentiment("happy")
+get_nrc_sentiment("abuse")
+
+#Getting sentiment scores as per the required variable
+S1<-get_nrc_sentiment(review)
+View(S1)
+
+#Combining text and sentiment Column
+review_sentiment = cbind(text$Summary,S1)
+
+#Barplot for Sentiments
+barplot(colSums(S1), col = rainbow(10), ylab = "Count of Response", main = "Aircooler Feedback")
